@@ -1,0 +1,13 @@
+description: >
+  Trigger a Serverless Deployment.
+executor: default
+parameters:
+  install-provider-cli:
+    type: steps
+    default: [aws-cli/setup]
+    description: "Provide the CLI installation command as a step from your selected provider. This will attempt to install AWS by default."
+steps:
+  - steps: << parameters.install-provider-cli >>
+  - run:
+      name: Serverless Deploy
+      command: serverless deploy --verbose

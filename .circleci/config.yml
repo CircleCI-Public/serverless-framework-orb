@@ -3,8 +3,9 @@ version: 2.1
 # add your orb below, to be used in integration tests (note: a @dev:alpha
 # release must exist.);
 orbs:
-  serverless-framework: circleci/serverless-framework@dev:alpha
+  serverless: circleci/serverless-framework@dev:alpha
   orb-tools: circleci/orb-tools@9.0
+  aws-cli: circleci/aws-cli@0.1.20
 
 # Pipeline parameters
 parameters:
@@ -25,10 +26,10 @@ jobs:
   # Rename this job and add more as needed.
   #
   integration-test-1:
-    executor: orb-tools/ubuntu
+    executor: serverless/default
     steps:
-      - checkout
-    # - your-orb/your-orb-command
+      - aws-cli/setup
+      - serverless/setup
 
 workflows:
   # This `lint-pack_validate_publish-dev` workflow will run on any commit.
@@ -50,6 +51,7 @@ workflows:
       # if using Contexts, add your context below
       - orb-tools/publish-dev:
           orb-name: circleci/serverless-framework
+          context: orb-publishing
           requires:
             - orb-tools/pack
 
@@ -57,6 +59,7 @@ workflows:
       # dev:${CIRCLE_SHA1:0:7} version of your orb
       - orb-tools/trigger-integration-tests-workflow:
           name: trigger-integration-dev
+          context: orb-publishing
           requires:
             - orb-tools/publish-dev
 
@@ -82,7 +85,7 @@ workflows:
       # e.g. [semver:patch] will cause a patch version to be published.
       - orb-tools/dev-promote-prod-from-commit-subject:
           orb-name: circleci/serverless-framework
-
+          context: orb-publishing
           add-pr-comment: false
           fail-if-semver-not-indicated: true
           publish-version-tag: false
