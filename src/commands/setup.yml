@@ -30,7 +30,7 @@ steps:
             Tip: Install the AWS CLI and authenticate prior to running the Serverless setup command.
             Consider using the AWS CLI orb: https://circleci.com/orbs/registry/orb/circleci/aws-cli#usage-install_aws_cli
 
-            Import the AWS CLI Orb To Your Config: 
+            Import the AWS CLI Orb To Your Config:
             ---
               orbs:
                 aws-cli: circleci/aws-cli@x.y
