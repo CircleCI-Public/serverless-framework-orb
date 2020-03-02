@@ -77,7 +77,7 @@ workflows:
           type: approval
       # an example job
       - integration-test-1:
-          context: orb-publishing
+          context: serverless-framework-orb-testing
           requires:
             - approve_for_testing
 
