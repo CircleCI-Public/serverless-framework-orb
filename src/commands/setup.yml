@@ -10,7 +10,7 @@ steps:
   - run:
       name: Provider Check
       command: |
-        SLS_ORB_PROVIDER_PARAM=<< parameters.provider >>
+        SLS_ORB_PROVIDER_PARAM="<< parameters.provider >>"
         // If no provider
         if [ -z "$SLS_ORB_PROVIDER_PARAM" ]; then
           echo "................................."
