@@ -12,14 +12,14 @@ steps:
       command: |
         SLS_ORB_PROVIDER_PARAM="<< parameters.provider >>"
         # If no provider
-        if [ -z "$SLS_ORB_PROVIDER_PARAM" ]; then
+        if [ -z "$SLS_ORB_PROVIDER_PARAM" ] then
           echo "................................."
           echo " No Cloud Provider Selected."
           echo "................................."
           echo
           echo "To run deployments you must select a provider"
         # If AWS
-        elif [ "$SLS_ORB_PROVIDER_PARAM" == "AWS" ]; then
+        elif [ "$SLS_ORB_PROVIDER_PARAM" == "AWS" ] then
           echo "................................."
           echo "          AWS Selected.          "
           echo "................................."
@@ -44,12 +44,12 @@ steps:
             ---
             "
           }
-          if [[ $(command -v aws --version >/dev/null 2>&1) == 1 ]]; then
+          if [[ $(command -v aws --version >/dev/null 2>&1) == 1 ]] then
             echo "ERROR: AWS CLI NOT INSTALLED"
             TipMsg_Install_AWS
             exit 1
           fi
-          if [[ -z $AWS_ACCESS_KEY_ID || -z $AWS_SECRET_ACCESS_KEY]]; then
+          if [[ -z $AWS_ACCESS_KEY_ID || -z $AWS_SECRET_ACCESS_KEY]] then
             if [[ ! -f ~/.aws/credentials]]; then
               echo "ERROR: CREDENTIALS NOT FOUND"
               TipMsg_Install_AWS
