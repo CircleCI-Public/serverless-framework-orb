@@ -2,11 +2,11 @@
 description: >
   A highly cached NodeJS environment with included CI tools.
 docker:
-  - image: 'cimg/node:<<parameters.tag>>'
+  - image: 'cimg/python:<<parameters.tag>>'
 parameters:
   tag:
-    default: "12.16"
+    default: "3.7" #update to node version when possible.
     description: >
-      Pick a specific cimg/node image variant:
-      https://hub.docker.com/r/cimg/node/tags
+      Pick a specific cimg/python image variant with NodeJS installed:
+      https://hub.docker.com/r/cimg/pythontags
     type: string
