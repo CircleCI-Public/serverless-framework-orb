@@ -29,7 +29,8 @@ jobs:
     executor: serverless/default
     steps:
       - aws-cli/setup
-      - serverless/setup
+      - serverless/setup:
+          provider: AWS
 
 workflows:
   # This `lint-pack_validate_publish-dev` workflow will run on any commit.
