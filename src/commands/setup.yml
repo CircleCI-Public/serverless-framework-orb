@@ -11,14 +11,14 @@ steps:
       name: Provider Check
       command: |
         SLS_ORB_PROVIDER_PARAM="<< parameters.provider >>"
-        // If no provider
+        # If no provider
         if [ -z "$SLS_ORB_PROVIDER_PARAM" ]; then
           echo "................................."
           echo " No Cloud Provider Selected."
           echo "................................."
           echo
           echo "To run deployments you must select a provider"
-        // If AWS
+        # If AWS
         elif [ "$SLS_ORB_PROVIDER_PARAM" == "AWS" ]; then
           echo "................................."
           echo "          AWS Selected.          "
