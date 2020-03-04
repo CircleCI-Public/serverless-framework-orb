@@ -28,12 +28,16 @@ jobs:
   integration-test-1:
     executor: serverless/default
     steps:
+      - checkout
       - aws-cli/setup
       - serverless/setup:
           provider: AWS
           app-name: example-app
           org-name: circleci
-      - run: serverless deploy -v
+      - run:
+          command: serverless deploy -v
+          working_directory: ~/project/example
+          name: deploy
 
 workflows:
   # This `lint-pack_validate_publish-dev` workflow will run on any commit.

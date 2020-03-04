@@ -146,8 +146,6 @@ steps:
               or via contexts.
               https://serverless.com/framework/docs/dashboard/cicd/running-in-your-own-cicd#configure-environment-variables"
           else
-            # If there is a serverless key, attempt to login.
-            # serverless login # requires browser login
             SERVERLESS_ORB_ORG_NAME="<< parameters.org-name >>"
             SERVERLESS_ORB_APP_NAME="<< parameters.app-name >>"
             if [[ -n "$SERVERLESS_ORB_ORG_NAME" && -n "$SERVERLESS_ORB_APP_NAME" ]]; then
