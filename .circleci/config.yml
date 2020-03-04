@@ -31,6 +31,9 @@ jobs:
       - aws-cli/setup
       - serverless/setup:
           provider: AWS
+          app-name: example-app
+          org-name: circleci
+      - run: serverless deploy
 
 workflows:
   # This `lint-pack_validate_publish-dev` workflow will run on any commit.
