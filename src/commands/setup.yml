@@ -150,7 +150,7 @@ steps:
             SERVERLESS_ORB_APP_NAME="<< parameters.app-name >>"
             if [[ -n "$SERVERLESS_ORB_ORG_NAME" && -n "$SERVERLESS_ORB_APP_NAME" ]]; then
               # Autoamtically connect to service (or create one) if org name and app name are present.
-              serverless --org "$SERVERLESS_ORB_ORG_NAME" --app "$SERVERLESS_ORB_APP_NAME"
+              echo y | serverless --org "$SERVERLESS_ORB_ORG_NAME" --app "$SERVERLESS_ORB_APP_NAME"
             else
               echo "WARNING: No Org name or App name detected. NOT connected to a service."
             fi
