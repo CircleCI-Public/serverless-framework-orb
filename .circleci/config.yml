@@ -27,7 +27,6 @@ jobs:
   #
   integration-test-1:
     executor: serverless/default
-    working_directory: ~/project/example
     environment:
       SLS_DEBUG: "*"
     steps:
@@ -38,7 +37,7 @@ jobs:
           app-name: example-app
           org-name: circleci
       - run:
-          command: serverless deploy -v
+          command: cd example && ls && serverless deploy -v
           name: deploy
 
 workflows:
