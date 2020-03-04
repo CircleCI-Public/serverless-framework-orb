@@ -34,7 +34,7 @@ jobs:
       - aws-cli/setup
       - serverless/setup:
           provider: AWS
-          app-name: example-app
+          app-name: serverless-framework-orb
           org-name: circleci
       - run:
           command: cd example && ls && serverless deploy -v

@@ -13,7 +13,7 @@
 
 service: serverless-cci-example
 # app and org for use with dashboard.serverless.com
-app: example-app
+app: serverless-framework-orb
 org: circleci
 
 provider:
