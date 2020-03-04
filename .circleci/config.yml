@@ -33,7 +33,7 @@ jobs:
           provider: AWS
           app-name: example-app
           org-name: circleci
-      - run: serverless deploy
+      - run: serverless deploy -v
 
 workflows:
   # This `lint-pack_validate_publish-dev` workflow will run on any commit.
