@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: serverless_cci_example
+service: serverless-cci-example
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name
