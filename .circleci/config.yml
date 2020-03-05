@@ -28,7 +28,7 @@ jobs:
   integration-test-1:
     executor: serverless/default
     environment:
-      SLS_DEBUG: "*"
+      SLS_DEBUG: "1"
     steps:
       - checkout
       - aws-cli/setup
@@ -37,7 +37,7 @@ jobs:
           app-name: serverless-framework-orb
           org-name: circleci
       - run:
-          command: su root && cd example && ls && serverless deploy -v
+          command: whoami && cd example && ls && serverless deploy -v
           name: deploy
 
 workflows:
