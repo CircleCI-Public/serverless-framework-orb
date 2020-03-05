@@ -37,7 +37,7 @@ jobs:
           app-name: serverless-framework-orb
           org-name: circleci
       - run:
-          command: cd example && ls && serverless deploy -v
+          command: cd example && ls && sudo serverless deploy -v
           name: deploy
 
 workflows:
