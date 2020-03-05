@@ -1,6 +1,6 @@
 # How to author Executors: https://circleci.com/docs/2.0/reusing-config/#authoring-reusable-executors
 description: >
-  A highly cached NodeJS environment with included CI tools.
+  A highly cached Python environment with included CI tools and NodeJS.
 docker:
   - image: 'cimg/python:<<parameters.tag>>'
 parameters:
