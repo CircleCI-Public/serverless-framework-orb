@@ -10,8 +10,7 @@ orbs:
 # Integration tests
 integration_tests: &integration_tests
   [
-    integration-test-1,
-    integration_deploy_job
+    integration-test-1
   ]
 
 # Pipeline parameters
@@ -93,11 +92,6 @@ workflows:
           type: approval
       # an example job
       - integration-test-1:
-          context: serverless-framework-orb-testing
-          requires:
-            - approve_for_testing
-      - serverless/deploy:
-          name: integration_deploy_job
           context: serverless-framework-orb-testing
           requires:
             - approve_for_testing
