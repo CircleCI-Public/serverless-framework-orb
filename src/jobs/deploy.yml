@@ -6,8 +6,25 @@ parameters:
     type: steps
     default: [aws-cli/setup]
     description: "Provide the CLI installation command as a step from your selected provider. This will attempt to install AWS by default."
+  provider:
+    type: enum
+    enum: ["", "AWS", "azure", "tencent", "google", "knative", "alibaba", "cloudflare", "fn", "kubeless", "openwhisk", "spotinist"]
+    default: "AWS"
+  org-name:
+    type: string
+    description: Connect to serverless.com dashboard. Provide the org name for this app.
+    default: ""
+  app-name:
+    type: string
+    description: Connect to serverless.com dashboard. Provide the name of this app.
+    default: ""
 steps:
+  - checkout
   - steps: << parameters.install-provider-cli >>
+  - serverless/setup:
+      provider: << parameters.provider >>
+      org-name: << parameters.org-name >>
+      app-name: << parameters.app-name >>
   - run:
       name: Serverless Deploy
       command: serverless deploy --verbose

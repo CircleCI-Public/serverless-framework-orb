@@ -5,7 +5,7 @@ parameters:
   provider:
     type: enum
     enum: ["", "AWS", "azure", "tencent", "google", "knative", "alibaba", "cloudflare", "fn", "kubeless", "openwhisk", "spotinist"]
-    default: ""
+    default: "AWS"
   org-name:
     type: string
     description: Connect to serverless.com dashboard. Provide the org name for this app.

@@ -7,6 +7,13 @@ orbs:
   orb-tools: circleci/orb-tools@9.0
   aws-cli: circleci/aws-cli@0.1.20
 
+# Integration tests
+integration_tests: &integration_tests
+  [
+    integration-test-1
+    integration_deploy_job
+  ]
+
 # Pipeline parameters
 parameters:
   # These pipeline parameters are required by the "trigger-integration-tests-workflow"
@@ -89,6 +96,11 @@ workflows:
           context: serverless-framework-orb-testing
           requires:
             - approve_for_testing
+      - serverless/deploy:
+          name: integration_deploy_job
+          context: serverless-framework-orb-testing
+          requires:
+            - approve_for_testing
 
       # publish a semver version of the orb. relies on
       # the commit subject containing the text "[semver:patch|minor|major|skip]"
@@ -102,8 +114,7 @@ workflows:
           add-pr-comment: false
           fail-if-semver-not-indicated: true
           publish-version-tag: false
-          requires:
-            - integration-test-1
+          requires: *integration_tests
           filters:
             branches:
               only: master
