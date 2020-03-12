@@ -22,9 +22,12 @@ provider:
   region: us-west-2
 
 functions:
-  hello:
-    handler: handler.hello
+  add:
+    handler: handler.add
     events:
       - http:
           path: /
           method: get
+
+plugins:
+  - serverless-plugin-typescript
