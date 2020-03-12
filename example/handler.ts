@@ -1,9 +1,8 @@
 function addNumbers(numbers: Array<number>) {
-  let total: number = 0
-  numbers.forEach(element => {
-    total += element
-  })
-  return total
+  
+  return numbers.reduce((acc, value) => {
+    return acc + value
+  }, 0)
 }
 
 module.exports.add = async (event: any) => {
