@@ -61,12 +61,6 @@ workflows:
       - orb-tools/lint
       - orb-tools/shellcheck
       - orb-tools/pack
-      # release dev version of orb, for testing & possible publishing.
-      # orb will be published as dev:alpha and dev:${CIRCLE_SHA1:0:7}.
-      # requires a CircleCI API token to be stored as CIRCLE_TOKEN (default)
-      # https://circleci.com/docs/2.0/managing-api-tokens
-      # store CIRCLE_TOKEN as a project env var or Contexts resource
-      # if using Contexts, add your context below
       - orb-tools/publish-dev:
           orb-name: circleci/serverless-framework
           context: orb-publishing
