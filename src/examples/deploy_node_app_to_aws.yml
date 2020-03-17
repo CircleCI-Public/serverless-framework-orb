@@ -17,8 +17,8 @@ usage:
       steps:
         - checkout
         - node/with-cache:
-          steps:
-            - run: npm install
+            steps:
+              - run: npm install
         - run: npm run test
         - aws-cli/setup
         - serverless/setup:
