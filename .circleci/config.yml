@@ -79,7 +79,7 @@ workflows:
       # integration tests of your choosing
       - approve_for_testing:
           type: approval
-      # an example job
+
       - integration-test-1:
           context: serverless-framework-orb-testing
           requires:
