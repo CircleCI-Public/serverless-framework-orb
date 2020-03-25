@@ -9,17 +9,12 @@ usage:
   orbs:
     serverless: circleci/serverless-framework@x.y
     aws-cli: circleci/aws-cli@x.y
-    node: circleci/node@x.y
   jobs:
     build:
       docker:
-        - image: cimg/python:3.8-node
+        - image: cimg/python:3.8
       steps:
         - checkout
-        - node/with-cache:
-          steps:
-            - run: npm install
-        - run: npm run test
         - aws-cli/setup
         - serverless/setup:
             app-name: serverless-framework-orb
