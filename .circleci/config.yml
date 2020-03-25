@@ -4,7 +4,7 @@ version: 2.1
 # release must exist.);
 orbs:
   serverless: circleci/serverless-framework@dev:alpha
-  orb-tools: circleci/orb-tools@9.0
+  orb-tools: circleci/orb-tools@dev:alpha
   aws-cli: circleci/aws-cli@0.1.22
   node: circleci/node@1.1
 
@@ -13,7 +13,12 @@ integration_tests: &integration_tests
   [
     integration-test-1
   ]
-
+orb_prep_jobs: &orb_prep_jobs
+  [
+    orb-tools/lint,
+    orb-tools/shellcheck,
+    orb-tools/pack
+  ]
 # Pipeline parameters
 parameters:
   # These pipeline parameters are required by the "trigger-integration-tests-workflow"
@@ -26,20 +31,17 @@ parameters:
     default: "dev:alpha"
 
 jobs:
-  # This job is an example of an integration testing job.
-  # This job should execute a command from your orb and verify
-  # the output is as expected, otherwise the job should fail.
-  #
-  # Rename this job and add more as needed.
-  #
   integration-test-1:
     docker:
-      - image: cimg/python:3.8
+      - image: circleci/python:3.9-rc-node-browsers
     environment:
       SLS_DEBUG: "1"
     steps:
       - checkout
       - aws-cli/setup
+      - run:
+          name: NPM install
+          command: npm install
       - serverless/setup:
           provider: AWS
           app-name: serverless-framework-orb
@@ -54,24 +56,12 @@ workflows:
     unless: << pipeline.parameters.run-integration-tests >>
     jobs:
       - orb-tools/lint
-      # pack your orb YAML files to a single orb.yml
-      # validate the orb.yml file to ensure it is well-formed
-      - orb-tools/pack:
-          requires:
-            - orb-tools/lint
-
-      # release dev version of orb, for testing & possible publishing.
-      # orb will be published as dev:alpha and dev:${CIRCLE_SHA1:0:7}.
-      # requires a CircleCI API token to be stored as CIRCLE_TOKEN (default)
-      # https://circleci.com/docs/2.0/managing-api-tokens
-      # store CIRCLE_TOKEN as a project env var or Contexts resource
-      # if using Contexts, add your context below
+      - orb-tools/shellcheck
+      - orb-tools/pack
       - orb-tools/publish-dev:
           orb-name: circleci/serverless-framework
           context: orb-publishing
-          requires:
-            - orb-tools/pack
-
+          requires: *orb_prep_jobs
       # trigger an integration workflow to test the
       # dev:${CIRCLE_SHA1:0:7} version of your orb
       - orb-tools/trigger-integration-tests-workflow:
@@ -87,12 +77,9 @@ workflows:
   integration-tests_prod-release:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
-      # your integration test jobs go here: essentially, run all your orb's
-      # jobs and commands to ensure they behave as expected. or, run other
-      # integration tests of your choosing
       - approve_for_testing:
           type: approval
-      # an example job
+
       - integration-test-1:
           context: serverless-framework-orb-testing
           requires:

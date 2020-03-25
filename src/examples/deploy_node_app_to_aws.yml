@@ -15,6 +15,8 @@ usage:
         - image: cimg/python:3.8
       steps:
         - checkout
+        - run: npm install
+        - run: npm run test
         - aws-cli/setup
         - serverless/setup:
             app-name: serverless-framework-orb

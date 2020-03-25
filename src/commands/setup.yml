@@ -19,7 +19,7 @@ steps:
       name: Provider Check
       command: |
         SLS_ORB_PROVIDER_PARAM="<< parameters.provider >>"
-        echo "export SLS_ORB_PROVIDER_PARAM=$SLS_ORB_PROVIDER_PARAM" >> $BASH_ENV
+        echo "export SLS_ORB_PROVIDER_PARAM=$SLS_ORB_PROVIDER_PARAM" >> "$BASH_ENV"
         ###
         # Helper functions
         ###
@@ -137,8 +137,8 @@ steps:
       command: |
         # install
         curl -o- -L https://slss.io/install | bash
-        echo "export PATH=$HOME/.serverless/bin:$PATH" >> $BASH_ENV
-        source $BASH_ENV
+        echo "export PATH=$HOME/.serverless/bin:$PATH" >> "$BASH_ENV"
+        source "$BASH_ENV"
         # Check for Serverless key
         if [ -z "$SERVERLESS_ACCESS_KEY" ]; then
           echo "Error: The environment variable SERVERLESS_ACCESS_KEY is empty.
