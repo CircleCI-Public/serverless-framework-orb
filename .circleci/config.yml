@@ -35,6 +35,7 @@ jobs:
     # Test within the default executor
     # - install the aws cli
     # - run serverless setup
+    # - Test the node app
     # - deploy sample application
     executor: serverless/default
     environment:
@@ -43,6 +44,7 @@ jobs:
       - checkout
       - aws-cli/setup
       - node/install-packages
+      - run: npm run test
       - serverless/setup:
           provider: AWS
           app-name: serverless-framework-orb
