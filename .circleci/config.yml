@@ -6,7 +6,7 @@ orbs:
   serverless: circleci/serverless-framework@dev:alpha
   orb-tools: circleci/orb-tools@dev:alpha
   aws-cli: circleci/aws-cli@0.1.22
-  node: circleci/node@1.1
+  node: circleci/node@2.0
 
 # Integration tests
 integration_tests: &integration_tests
@@ -32,16 +32,17 @@ parameters:
 
 jobs:
   integration-test-1:
-    docker:
-      - image: circleci/python:3.9-rc-node-browsers
+    # Test within the default executor
+    # - install the aws cli
+    # - run serverless setup
+    # - deploy sample application
+    executor: serverless/default
     environment:
       SLS_DEBUG: "1"
     steps:
       - checkout
       - aws-cli/setup
-      - run:
-          name: NPM install
-          command: npm install
+      - node/install-packages
       - serverless/setup:
           provider: AWS
           app-name: serverless-framework-orb

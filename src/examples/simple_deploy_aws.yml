@@ -1,0 +1,24 @@
+description: >
+  Use the Serverless orb's "setup" command to install the serverless CLI and authenticate with your account if an API key is provided. This example shows how to construct a custom "deploy" job using the Serverless and AWS CLI orbs to deploy an app to AWS.
+usage:
+  version: 2.1
+  orbs:
+    serverless: circleci/serverless-framework@x.y
+    aws-cli: circleci/aws-cli@x.y
+  jobs:
+    deploy:
+      executor: serverless/default
+      steps:
+        - checkout
+        - aws-cli/setup
+        - serverless/setup:
+            app-name: serverless-framework-orb
+            org-name: circleci
+        - run:
+            name: deploy
+            command: serverless deploy -v
+  workflows:
+    deploy:
+      jobs:
+        - deploy
+
