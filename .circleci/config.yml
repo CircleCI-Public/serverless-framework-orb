@@ -43,14 +43,18 @@ jobs:
     steps:
       - checkout
       - aws-cli/setup
-      - node/install-packages
-      - run: npm run test
+      - node/install-packages:
+          app-dir: "~/project/example"
+      - run:
+          command: npm run test
+          working_directory: "~/project/example"
       - serverless/setup:
           provider: AWS
           app-name: serverless-framework-orb
           org-name: circleci
       - run:
-          command: cd example && ls && serverless deploy -v
+          working_directory: "~/project/example"
+          command: ls && serverless deploy -v
           name: deploy
 
 workflows:
