@@ -53,6 +53,11 @@ jobs:
           app-name: serverless-framework-orb
           org-name: circleci
       - run:
+          name: Local invoke add function
+          working_directory: "~/project/example"
+          command: |
+            serverless invoke local --function add --data '{"numbers": [1,2,3]}'
+      - run:
           working_directory: "~/project/example"
           command: ls && serverless deploy -v
           name: deploy

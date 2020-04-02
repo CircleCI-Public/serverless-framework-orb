@@ -24,6 +24,11 @@ provider:
 functions:
   hello:
     handler: handler.hello
+    events:
+      - http:
+          path: /
+          method: get
+
   add:
     handler: handler.add
     events:
