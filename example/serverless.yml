@@ -35,6 +35,8 @@ functions:
       - http:
           path: /add
           method: post
+          cors: true
+          
 
 plugins:
   - serverless-plugin-typescript

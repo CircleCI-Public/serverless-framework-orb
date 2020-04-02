@@ -1,6 +1,6 @@
 function addNumbers(event: any) {
   console.log(event)
-  const numbers = event.numbers
+  const numbers = event.body.numbers
   const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue
   return numbers.reduce(reducer)
 }
