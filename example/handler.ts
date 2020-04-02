@@ -5,10 +5,12 @@ function addNumbers(numbers: Array<number>) {
 }
 
 module.exports.add = async (event: any) => {
-  console.log("Full event: \n", JSON.stringify(event))
+  // https://stackoverflow.com/a/52240132/8963385
+  // Body is being processed as a string, not json, which is failing to properly insert into addNumbers.
+  console.log("Full event Body: \n", JSON.stringify(event.body))
   const response = {
     statusCode: 200,
-    body: JSON.stringify(addNumbers(event.body.numbers))
+    body: JSON.stringify(addNumbers(JSON.parse(event.body.numbers)))
   }
   return response
 }
