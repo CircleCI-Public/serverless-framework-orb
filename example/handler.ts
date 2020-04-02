@@ -10,7 +10,9 @@ module.exports.add = async (event: any) => {
   const responseBody = JSON.stringify(event.body)
   console.log("Full event Body: \n", responseBody)
   const parsedBody = JSON.parse(responseBody)
+  console.log("Full parsedBody: \n", parsedBody)
   const responseNumbers = parsedBody.numbers
+  console.log("Full responseNumbers: \n", responseNumbers)
   const response = {
     statusCode: 200,
     body: JSON.stringify(addNumbers(responseNumbers))
