@@ -56,7 +56,7 @@ jobs:
           name: Local invoke add function
           working_directory: "~/project/example"
           command: |
-            serverless invoke local --function add --path '../sampleData/data.json'
+            serverless invoke local --function add --path 'sampleData/data.json'
       - run:
           working_directory: "~/project/example"
           command: ls && serverless deploy -v
