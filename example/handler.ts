@@ -6,11 +6,14 @@ function addNumbers(numbers: Array<number>) {
 
 module.exports.add = async (event: any) => {
   // https://stackoverflow.com/a/52240132/8963385
-  // Body is being processed as a string, not json, which is failing to properly insert into addNumbers.
-  console.log("Full event Body: \n", JSON.stringify(event.body))
+  // Body is being processed as a string, not json, ONLY on API gateway which is failing to properly insert into addNumbers.
+  const responseBody = JSON.stringify(event.body)
+  console.log("Full event Body: \n", responseBody)
+  const parsedBody = JSON.parse(responseBody)
+  const responseNumbers = parsedBody.numbers
   const response = {
     statusCode: 200,
-    body: JSON.stringify(addNumbers(JSON.parse(event.body.numbers)))
+    body: JSON.stringify(addNumbers(responseNumbers))
   }
   return response
 }
