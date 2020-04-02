@@ -1,4 +1,6 @@
-function addNumbers(numbers: Array<number>) {
+function addNumbers(event: any) {
+  console.log(event)
+  const numbers = event.numbers
   const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue
   return numbers.reduce(reducer)
 }
@@ -6,7 +8,7 @@ function addNumbers(numbers: Array<number>) {
 module.exports.add = async (event: any) => {
   const response = {
     statusCode: 200,
-    body: JSON.stringify(addNumbers(event.numbers))
+    body: JSON.stringify(addNumbers(event))
   }
   return response
 }
