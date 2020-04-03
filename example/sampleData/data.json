@@ -1,5 +1,6 @@
 {
     "body": {
-        "numbers": [1,2,3]
+        "numA": 5,
+        "numB": 10
     }
 }
