@@ -10,10 +10,14 @@ module.exports.add = async (event: any) => {
   const responseBody = JSON.stringify(event.body)
   console.log("Stringified Body: \n", responseBody)
   const parsedBody = JSON.parse(responseBody)
+  console.log("TypeOf ParsedBody: \n", typeof(parsedBody))
   console.log("Parsed Body: \n", parsedBody)
+  const userNumbers = parsedBody.numbers
+  console.log("TypeOf userNumbers: \n", typeof(userNumbers))
+  console.log("Parsed Body: \n", userNumbers)
   const response = {
     statusCode: 200,
-    body: JSON.stringify(addNumbers(parsedBody.numbers))
+    body: JSON.stringify(addNumbers(userNumbers))
   }
   return response
 }
