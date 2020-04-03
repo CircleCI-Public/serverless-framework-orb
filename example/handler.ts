@@ -8,14 +8,12 @@ module.exports.add = async (event: any) => {
   // https://stackoverflow.com/a/52240132/8963385
   // Body is being processed as a string, not json, ONLY on API gateway which is failing to properly insert into addNumbers.
   const responseBody = JSON.stringify(event.body)
-  console.log("Full event Body: \n", responseBody)
+  console.log("Stringified Body: \n", responseBody)
   const parsedBody = JSON.parse(responseBody)
-  console.log("Full parsedBody: \n", parsedBody)
-  const responseNumbers = parsedBody.numbers
-  console.log("Full responseNumbers: \n", responseNumbers)
+  console.log("Parsed Body: \n", parsedBody)
   const response = {
     statusCode: 200,
-    body: JSON.stringify(addNumbers(responseNumbers))
+    body: JSON.stringify(addNumbers(parsedBody.numbers))
   }
   return response
 }
