@@ -1,0 +1,29 @@
+description: >
+  Make use of the Node, AWS CLI, and Serverless Framework orbs to test and deploy your serverless Node.js applications.
+usage:
+  version: 2.1
+  orbs:
+    serverless: circleci/serverless-framework@x.y
+    aws-cli: circleci/aws-cli@x.y
+    node: circleci/node@x.y
+  jobs:
+    deploy:
+      executor: serverless/default
+      steps:
+        - checkout
+        - aws-cli/setup
+        - serverless/setup:
+            app-name: serverless-framework-orb
+            org-name: circleci
+        - run:
+            name: deploy
+            command: serverless deploy -v
+  workflows:
+    deploy:
+      jobs:
+        - node/test:
+            version: "13.11.0"
+        - deploy:
+            requires:
+              - node/test
+

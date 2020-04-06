@@ -1,0 +1,157 @@
+# How to author commands: https://circleci.com/docs/2.0/reusing-config/#authoring-reusable-commands
+description: >
+  Install and authenticate with the Serverless CLI.
+parameters:
+  provider:
+    type: enum
+    enum: ["", "AWS", "azure", "tencent", "google", "knative", "alibaba", "cloudflare", "fn", "kubeless", "openwhisk", "spotinist"]
+    default: "AWS"
+  org-name:
+    type: string
+    description: Connect to serverless.com dashboard. Provide the org name for this app.
+    default: ""
+  app-name:
+    type: string
+    description: Connect to serverless.com dashboard. Provide the name of this app.
+    default: ""
+steps:
+  - run:
+      name: Provider Check
+      command: |
+        SLS_ORB_PROVIDER_PARAM="<< parameters.provider >>"
+        echo "export SLS_ORB_PROVIDER_PARAM=$SLS_ORB_PROVIDER_PARAM" >> "$BASH_ENV"
+        ###
+        # Helper functions
+        ###
+        output_Provider_Selected () {
+          echo "................................."
+          echo " $1 Selected."
+          echo "................................."
+          echo
+        }
+
+        ###
+        # Provider check functions
+        ###
+        AWS_Check () {
+          output_Provider_Selected "AWS"
+          if [[ $(command -v aws --version >/dev/null 2>&1) == 1 ]]; then
+            echo "ERROR: AWS CLI NOT INSTALLED"
+            TipMsg_Install_AWS
+            exit 1
+          fi
+          if [[ -z $AWS_ACCESS_KEY_ID || -z $AWS_SECRET_ACCESS_KEY ]]; then
+            if [[ ! -f ~/.aws/credentials ]]; then
+              echo "ERROR: CREDENTIALS NOT FOUND"
+              TipMsg_Install_AWS
+              exit 1
+            fi
+          fi
+          TipMsg_Install_AWS () {
+            echo "
+            ---
+            Tip: Install the AWS CLI and authenticate prior to running the Serverless setup command.
+            Consider using the AWS CLI orb: https://circleci.com/orbs/registry/orb/circleci/aws-cli#usage-install_aws_cli
+
+            Import the AWS CLI Orb To Your Config:
+            ---
+              orbs:
+                aws-cli: circleci/aws-cli@x.y
+            ---
+
+            Run The AWS Setup Command Prior To The Serverless Command:
+            ---
+              steps:
+                - aws-cli/setup
+                - serverless/setup
+            ---
+            "
+          }
+        }
+        azure_Check () {
+          output_Provider_Selected "Azure"
+        }
+        tencent_Check () {
+          output_Provider_Selected "Tencent"
+        }
+        knative_Check () {
+          output_Provider_Selected "Knative"
+        }
+        alibaba_Check () {
+          output_Provider_Selected "Alibaba"
+        }
+        cloudflare_Check () {
+          output_Provider_Selected "Cloudflare"
+        }
+        fn_Check () {
+          output_Provider_Selected "fn"
+        }
+        kubeless_Check () {
+          output_Provider_Selected "Kubeless"
+        }
+        openwhisk_Check () {
+          output_Provider_Selected "OpenWhisk"
+        }
+        spotinist_Check () {
+          output_Provider_Selected "Spotinist"
+        }
+        ###
+        # Call provider based on parameter
+        ###
+        case $SLS_ORB_PROVIDER_PARAM in
+          "AWS")
+            AWS_Check
+            ;;
+          "azure")
+            azure_Check
+            ;;
+          "tencent")
+            tencent_Check
+            ;;
+          "knative")
+            knative_Check
+            ;;
+          "alibaba")
+            alibaba_Check
+            ;;
+          "cloudflare")
+            cloudflare_Check
+            ;;
+          "fn")
+            fn_Check
+            ;;
+          "kubeless")
+            kubeless_Check
+            ;;
+          "openwhisk")
+            openwhisk_Check
+            ;;
+          "spotinist")
+            spotinist_Check
+            ;;
+          *)
+            other_Check
+        esac
+  - run:
+      name: Install Serverless CLI
+      command: |
+        # install
+        curl -o- -L https://slss.io/install | bash
+        echo "export PATH=$HOME/.serverless/bin:$PATH" >> "$BASH_ENV"
+        source "$BASH_ENV"
+        # Check for Serverless key
+        if [ -z "$SERVERLESS_ACCESS_KEY" ]; then
+          echo "Error: The environment variable SERVERLESS_ACCESS_KEY is empty.
+            Please create your serverless dashboard access key and add it to this project as a project environment vairable
+            or via contexts.
+            https://serverless.com/framework/docs/dashboard/cicd/running-in-your-own-cicd#configure-environment-variables"
+        else
+          SERVERLESS_ORB_ORG_NAME="<< parameters.org-name >>"
+          SERVERLESS_ORB_APP_NAME="<< parameters.app-name >>"
+          if [[ -n "$SERVERLESS_ORB_ORG_NAME" && -n "$SERVERLESS_ORB_APP_NAME" ]]; then
+            # Autoamtically connect to service (or create one) if org name and app name are present.
+            echo y | serverless --org "$SERVERLESS_ORB_ORG_NAME" --app "$SERVERLESS_ORB_APP_NAME"
+          else
+            echo "WARNING: No Org name or App name detected. NOT connected to a service."
+          fi
+        fi

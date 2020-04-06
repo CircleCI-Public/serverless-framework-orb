@@ -1,14 +1,11 @@
-# How to author Executors: https://circleci.com/docs/2.0/reusing-config/#authoring-reusable-executors
 description: >
-  This is a sample executor using Docker and Node.
-  # What is this executor?
-  # Descriptions should be short, simple, and clear.
+  Highly cached minimal Ubuntu docker designed for CircleCI with Python and Node.js installed.
 docker:
-  - image: 'circleci/node:<<parameters.tag>>'
+  - image: 'cimg/python:<<parameters.python-version>>'
 parameters:
-  tag:
-    default: latest
+  python-version:
+    default: "3.8-node"
     description: >
-      Pick a specific circleci/node image variant:
-      https://hub.docker.com/r/circleci/node/tags
+      Select your python version or any of the available tags here:
+      https://hub.docker.com/r/cimg/python.
     type: string
