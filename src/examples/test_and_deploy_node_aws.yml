@@ -1,5 +1,5 @@
 description: >
-  Make use of the Node, AWS CLI, and Serverless framework orbs to test and deploy your serverless Node.js applications.
+  Make use of the Node, AWS CLI, and Serverless Framework orbs to test and deploy your serverless Node.js applications.
 usage:
   version: 2.1
   orbs:

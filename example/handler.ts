@@ -1,16 +1,13 @@
-function addNumbers(numA: number, numB: number) {
-  return numA + numB
+function addNumbers(numbers: Array<number>) {
+  return numbers.reduce((acc,cv) => acc + cv)
 }
 
 module.exports.add = async (event: any) => {
-  const eventString = JSON.stringify(event.body)
-  const numbers = JSON.parse(eventString)
-  console.log("Numbers: ", numbers)
-  console.log("Type of Numbers: ", typeof(numbers))
-  console.log(numbers.numA, numbers.numB)
+ //Works locally only. Has a problem behind the API Gateway
+  let bodyObj = event.body
   const response = {
     statusCode: 200,
-    body: JSON.stringify(addNumbers(numbers.numA, numbers.numB))
+    body: `${addNumbers(bodyObj.numbers)}`
   }
   return response
 }

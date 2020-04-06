@@ -1,4 +1,5 @@
-# serverless-framework Orb [![CircleCI Build Status](https://circleci.com/gh/CircleCI-Public/serverless-framework-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/CircleCI-Public/serverless-framework-orb) [![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?url=https://badges.circleci.io/orb/circleci/serverless-framework)](https://circleci.com/orbs/registry/orb/circleci/serverless-framework) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/CircleCI-Public/serverless-framework-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
+# serverless-framework Orb
+[![CircleCI Build Status](https://circleci.com/gh/CircleCI-Public/serverless-framework-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/CircleCI-Public/serverless-framework-orb) [![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?url=https://badges.circleci.io/orb/circleci/serverless-framework)](https://circleci.com/orbs/registry/orb/circleci/serverless-framework) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/CircleCI-Public/serverless-framework-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
 
 Use the Serverless Framework orb for CircleCI to easily deploy to your favorite cloud platform.
 
@@ -7,6 +8,34 @@ Use the Serverless Framework orb for CircleCI to easily deploy to your favorite 
 
 Example use-cases are provided on the orb [registry page](https://circleci.com/orbs/registry/orb/circleci/serverless-framework#usage-examples). Source for these examples can be found within the `src/examples` directory.
 
+**Example**
+Use the Serverless Framework orb's **_"setup"_** command to install the Serverless Framework CLI and authenticate with your account if an API key is provided. This example shows how to construct a custom "deploy" job using the Serverless and AWS CLI orbs to deploy an app to AWS.
+
+```yaml
+  version: 2.1
+  orbs:
+    serverless: circleci/serverless-framework@x.y
+    aws-cli: circleci/aws-cli@x.y
+  jobs:
+    deploy:
+      executor: serverless/default
+      steps:
+        - checkout
+        - aws-cli/setup
+        - serverless/setup:
+            app-name: serverless-framework-orb
+            org-name: circleci
+        - run:
+            name: deploy
+            command: serverless deploy -v
+  workflows:
+    deploy:
+      jobs:
+        - deploy
+
+```
+
+View your deployments at https://dashboard.serverless.com/
 
 ## Resources
 

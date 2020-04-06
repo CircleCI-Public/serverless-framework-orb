@@ -1,5 +1,5 @@
 description: >
-  Use the Serverless orb's "setup" command to install the serverless CLI and authenticate with your account if an API key is provided. This example shows how to construct a custom "deploy" job using the Serverless and AWS CLI orbs to deploy an app to AWS.
+  Use the Serverless orb's "setup" command to install the Serverless Framework CLI and authenticate with your account if an API key is provided. This example shows how to construct a custom "deploy" job using the Serverless and AWS CLI orbs to deploy an app to AWS.
 usage:
   version: 2.1
   orbs:
