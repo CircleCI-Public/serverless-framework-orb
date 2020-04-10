@@ -77,7 +77,7 @@ steps:
 
             We were unable to find a value for one or more of the following required environment variables:
             ---
-              AZURE_SUBSCRIPTION_ID 
+              AZURE_SUBSCRIPTION_ID
               AZURE_TENANT_ID
               AZURE_CLIENT_ID
               AZURE_CLIENT_SECRET
