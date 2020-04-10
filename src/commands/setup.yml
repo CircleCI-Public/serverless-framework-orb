@@ -70,6 +70,25 @@ steps:
         }
         azure_Check () {
           output_Provider_Selected "Azure"
+          if [[ -z $AZURE_SUBSCRIPTION_ID || -z $AZURE_TENANT_ID || -z $AZURE_CLIENT_ID || -z $AZURE_CLIENT_SECRET ]]; then
+            echo "
+            ---
+            ERROR: No Azure credentials provided!
+
+            We were unable to find a value for one or more of the following required environment variables:
+            ---
+              AZURE_SUBSCRIPTION_ID 
+              AZURE_TENANT_ID
+              AZURE_CLIENT_ID
+              AZURE_CLIENT_SECRET
+            ---
+
+            The Serverless Framework needs access to Azure account credentials so that it can create and manage resources on your behalf.
+
+            Docs: https://serverless.com/framework/docs/providers/azure/guide/credentials/
+            "
+            exit 1
+          fi
         }
         tencent_Check () {
           output_Provider_Selected "Tencent"
