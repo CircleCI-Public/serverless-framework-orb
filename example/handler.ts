@@ -7,7 +7,7 @@ module.exports.add = async (event: any) => {
   let bodyObj = event.body
   const response = {
     statusCode: 200,
-    body: `${addNumbers(bodyObj.numbers)}`
+    body: {result: `${addNumbers(bodyObj.numbers)}`}
   }
   return response
 }
@@ -15,7 +15,7 @@ module.exports.add = async (event: any) => {
 module.exports.hello = async (event: any) => {
   const response = {
     statusCode: 200,
-    body: "Hello!"
+    body: JSON.stringify({ message: "Hello!" })
   }
   console.log({ response })
   return response
