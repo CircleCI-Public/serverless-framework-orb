@@ -2,14 +2,16 @@ function addNumbers(numbers: Array<number>) {
   console.log("Adding Numbers")
   console.log("Numbers to add: " + numbers)
   console.log(typeof numbers)
-  return numbers.reduce((acc,cv) => acc + cv)
+  let total = 0
+  numbers.forEach( number => {
+    total += number
+  })
+  return total
 }
 
 module.exports.add = async (event: any) => {
  //Works locally only. Has a problem behind the API Gateway
   let bodyObj = event.body
-  let values = bodyObj.numbers.values()
-  console.log("Values = " + values.toString())
   console.log("Received Add event")
   console.log("Body of event: " + bodyObj)
   console.log(typeof bodyObj)
