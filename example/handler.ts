@@ -10,7 +10,8 @@ module.exports.add = async (event: any) => {
   if (event.body) {
     console.log("Running on AWS")
     console.log(JSON.stringify(event.body))
-    var numbers = event.body.numbers
+    let body = JSON.parse(event.body)
+    var numbers = body.numbers
   } else if (event.numbers) {
     console.log("Running Locally")
     var numbers = event.numbers
