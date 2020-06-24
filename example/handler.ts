@@ -1,8 +1,10 @@
 function addNumbers(numbers: Array<number>) {
   console.log("Adding Numbers")
   console.log("Numbers to add: " + numbers)
-  console.log(typeof numbers)
-  return numbers.reduce((acc,cv) => acc + cv)
+  console.log("type of numbers: " + typeof numbers)
+  let sum = numbers.reduce((acc,cv) => acc + cv)
+  console.log("Sum: " + sum)
+  return sum
 }
 
 module.exports.add = async (event: any) => {
@@ -16,12 +18,14 @@ module.exports.add = async (event: any) => {
     console.log("Running Locally")
     var numbers = event.numbers
   } else {
-    console.log ("ERROR IN BODY")
+    console.log ("ERROR IN EVENT")
   }
   const response = {
     statusCode: 200,
     body: {result: `${addNumbers(numbers)}`}
   }
+  console.log("Resonse: ")
+  console.log(JSON.stringify(response))
   return response
 }
 
