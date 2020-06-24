@@ -10,27 +10,17 @@ function addNumbers(numbers: Array<number>) {
 }
 
 module.exports.add = async (event: any) => {
- //Works locally only. Has a problem behind the API Gateway
-  let bodyObj = event.body
-  if ((typeof(event.body) == "string")) {
-    bodyObj = JSON.parse(event.body)
+
+  if (event.body) {
+    var numbers = event.body.numbers
+  } else if (event.numbers) {
+    var numbers = event.numbers
+  } else {
+    console.log ("ERROR IN BODY")
   }
-  console.log("Received Add event")
-  console.log("Body of event: " + bodyObj)
-  console.log(typeof bodyObj)
-  console.log()
-  console.log("Print body")
-  console.log(JSON.stringify(bodyObj))
-  console.log()
-  console.log("Numbers: " + bodyObj.numbers)
-  console.log("Number type: " + typeof bodyObj.numbers)
-  console.log("Stringified version:")
-  console.log(JSON.stringify(bodyObj))
-  console.log("-----")
-  console.log()
   const response = {
     statusCode: 200,
-    body: {result: `${addNumbers(bodyObj.numbers)}`}
+    body: {result: `${addNumbers(numbers)}`}
   }
   return response
 }
