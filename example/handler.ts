@@ -1,17 +1,13 @@
 function addNumbers(numbers: Array<number>) {
   console.log("Adding Numbers")
   console.log("Numbers to add: " + numbers)
-  console.log("type of numbers: " + typeof numbers)
-  let sum = numbers.reduce((acc,cv) => acc + cv)
-  console.log("Sum: " + sum)
-  return sum
+  return numbers.reduce((acc,cv) => acc + cv)
 }
 
 module.exports.add = async (event: any) => {
 
   if (event.body) {
     console.log("Running on AWS")
-    console.log(JSON.stringify(event.body))
     let body = JSON.parse(event.body)
     var numbers = body.numbers
   } else if (event.numbers) {
@@ -22,10 +18,10 @@ module.exports.add = async (event: any) => {
   }
   const response = {
     statusCode: 200,
-    body: {result: `${addNumbers(numbers)}`}
+    body: JSON.stringify({result: `${addNumbers(numbers)}`})
   }
   console.log("Resonse: ")
-  console.log(JSON.stringify(response))
+  console.log(response)
   return response
 }
 
