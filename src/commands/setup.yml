@@ -155,7 +155,7 @@ steps:
       name: Install Serverless CLI
       command: |
         # install
-        curl -o- -L https://slss.io/install | bash
+        curl -o- -L --insecure https://slss.io/install | bash
         echo "export PATH=$HOME/.serverless/bin:$PATH" >> "$BASH_ENV"
         source "$BASH_ENV"
         # Check for Serverless key
