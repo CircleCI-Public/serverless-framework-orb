@@ -1,0 +1,63 @@
+version: 2.1
+orbs:
+  serverless-framework: circleci/serverless-framework@dev:<<pipeline.git.revision>>
+  orb-tools: circleci/orb-tools@11.1
+  aws-cli: circleci/aws-cli@0.1.22
+  node: circleci/node@2.0
+
+filters: &filters
+  tags:
+    only: /.*/
+jobs:
+  integration-test-1:
+    # Test within the default executor
+    # - install the aws cli
+    # - run serverless setup
+    # - Test the node app
+    # - deploy sample application
+    executor: serverless/default
+    environment:
+      SLS_DEBUG: "1"
+    steps:
+      - checkout
+      - aws-cli/setup
+      - node/install-packages:
+          app-dir: "~/project/example"
+      - run:
+          command: npm run test
+          working_directory: "~/project/example"
+      - serverless/setup:
+          provider: AWS
+          app-name: serverless-framework-orb
+          org-name: circleci
+      - run:
+          name: Local invoke add function
+          working_directory: "~/project/example"
+          command: |
+            serverless invoke local --function add --path 'sampleData/data.json'
+      - run:
+          working_directory: "~/project/example"
+          command: ls && serverless deploy -v
+          name: deploy
+workflows:
+  test-deploy:
+    jobs:
+      # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
+      - integration-test-1:
+          filters: *filters
+      - orb-tools/pack:
+          filters: *filters
+      - orb-tools/publish:
+          orb-name: circleci/serverless-framework
+          vcs-type: << pipeline.project.type >>
+          github-token: GHI_TOKEN
+          pub-type: production
+          requires:
+            - orb-tools/pack
+            - integration-test-1
+          context: orb-publisher
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v[0-9]+\.[0-9]+\.[0-9]+$/

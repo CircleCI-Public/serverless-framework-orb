@@ -6,4 +6,3 @@ description: >
 display:
   home_url: "https://serverless.com/"
   source_url: "https://github.com/CircleCI-Public/serverless-framework-orb"
-
