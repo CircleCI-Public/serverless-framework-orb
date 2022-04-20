@@ -8,39 +8,10 @@ Use the Serverless Framework orb for CircleCI to easily deploy to your favorite 
 
 Example use-cases are provided on the orb [registry page](https://circleci.com/orbs/registry/orb/circleci/serverless-framework#usage-examples). Source for these examples can be found within the `src/examples` directory.
 
-**Example**
-Use the Serverless Framework orb's **_"setup"_** command to install the Serverless Framework CLI and authenticate with your account if an API key is provided. This example shows how to construct a custom "deploy" job using the Serverless and AWS CLI orbs to deploy an app to AWS.
-
-```yaml
-  version: 2.1
-  orbs:
-    serverless: circleci/serverless-framework@x.y
-    aws-cli: circleci/aws-cli@x.y
-  jobs:
-    deploy:
-      executor: serverless/default
-      steps:
-        - checkout
-        - aws-cli/setup
-        - serverless/setup:
-            app-name: serverless-framework-orb
-            org-name: circleci
-        - run:
-            name: deploy
-            command: serverless deploy -v
-  workflows:
-    deploy:
-      jobs:
-        - deploy
-
-```
-
-View your deployments at https://dashboard.serverless.com/
-
 ## Resources
 
-[CircleCI Orb Registry Page](https://circleci.com/orbs/registry/orb/circleci/serverless-framework) - The official registry page of this orb for all versions, executors, commands, and jobs described.  
-[CircleCI Orb Docs](https://circleci.com/docs/2.0/orb-intro/#section=configuration) - Docs for using and creating CircleCI Orbs.  
+[CircleCI Orb Registry Page](https://circleci.com/orbs/registry/orb/circleci/serverless-framework) - The official registry page of this orb for all versions, executors, commands, and jobs described.
+[CircleCI Orb Docs](https://circleci.com/docs/2.0/orb-intro/#section=configuration) - Docs for using and creating CircleCI Orbs.
 
 ### How To Contribute
 
