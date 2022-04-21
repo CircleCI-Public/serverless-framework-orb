@@ -1,0 +1,7 @@
+version: 2.1
+
+description: >
+  Add the Serverless Framework CLI to your serverless deployment pipeline with ease. Easily and automatically test and deploy serverless applications to your favorite cloud provider.
+display:
+  home_url: "https://serverless.com/"
+  source_url: "https://github.com/CircleCI-Public/serverless-framework-orb"
