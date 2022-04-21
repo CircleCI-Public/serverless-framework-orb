@@ -28,8 +28,6 @@ jobs:
           working_directory: "~/project/example"
       - serverless/setup:
           provider: AWS
-          app-name: serverless-framework-orb
-          org-name: circleci
       - run:
           name: Local invoke add function
           working_directory: "~/project/example"
