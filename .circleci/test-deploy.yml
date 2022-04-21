@@ -37,7 +37,7 @@ jobs:
             serverless invoke local --function add --path 'sampleData/data.json'
       - run:
           working_directory: "~/project/example"
-          command: ls && serverless deploy -v
+          command: ls && serverless deploy
           name: deploy
 workflows:
   test-deploy:
