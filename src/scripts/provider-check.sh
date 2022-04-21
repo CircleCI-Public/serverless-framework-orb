@@ -15,12 +15,12 @@ output_Provider_Selected () {
 ###
 AWS_Check () {
   output_Provider_Selected "AWS"
-  if [[ $(command -v aws --version >/dev/null 2>&1) == 1 ]]; then
+  if ! command -v aws &> /dev/null; then
     echo "ERROR: AWS CLI NOT INSTALLED"
     TipMsg_Install_AWS
     exit 1
   fi
-  if [[ -z $AWS_ACCESS_KEY_ID || -z $AWS_SECRET_ACCESS_KEY ]]; then
+  if [[ -z "$AWS_ACCESS_KEY_ID" || -z "$AWS_SECRET_ACCESS_KEY" ]]; then
     if [[ ! -f ~/.aws/credentials ]]; then
       echo "ERROR: CREDENTIALS NOT FOUND"
       TipMsg_Install_AWS
@@ -50,7 +50,7 @@ AWS_Check () {
 }
 azure_Check () {
   output_Provider_Selected "Azure"
-  if [[ -z $AZURE_SUBSCRIPTION_ID || -z $AZURE_TENANT_ID || -z $AZURE_CLIENT_ID || -z $AZURE_CLIENT_SECRET ]]; then
+  if [[ -z "$AZURE_SUBSCRIPTION_ID" || -z "$AZURE_TENANT_ID" || -z "$AZURE_CLIENT_ID" || -z "$AZURE_CLIENT_SECRET" ]]; then
     echo "
     ---
     ERROR: No Azure credentials provided!
@@ -97,7 +97,7 @@ spotinist_Check () {
 ###
 # Call provider based on parameter
 ###
-case $SLS_ORB_PROVIDER_PARAM in
+case "$SLS_ORB_PROVIDER_PARAM" in
   "AWS")
     AWS_Check
     ;;
