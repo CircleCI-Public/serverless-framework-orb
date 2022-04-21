@@ -21,4 +21,3 @@ usage:
     deploy:
       jobs:
         - deploy
-
