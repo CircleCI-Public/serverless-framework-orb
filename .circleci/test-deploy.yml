@@ -9,7 +9,21 @@ filters: &filters
   tags:
     only: /.*/
 jobs:
-  integration-test-1:
+  test-sls-install-versioned:
+    executor: serverless/default
+    environment:
+      SLS_DEBUG: "1"
+    steps:
+      - checkout
+      - serverless/setup:
+          version: 3.15.0
+          provider: ""
+      - run:
+          name: Check SLS version
+          command: |
+            serverless --version | grep 3.15.0
+
+  test-sls-deploy:
     # Test within the default executor
     # - install the aws cli
     # - run serverless setup
@@ -41,9 +55,11 @@ workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
-      - integration-test-1:
+      - test-sls-deploy:
           filters: *filters
           context: CPE_ORBS_AWS
+      - test-sls-install-versioned:
+          filters: *filters
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -53,7 +69,8 @@ workflows:
           pub-type: production
           requires:
             - orb-tools/pack
-            - integration-test-1
+            - test-sls-deploy
+            - test-sls-install-versioned
           context: orb-publisher
           filters:
             branches:

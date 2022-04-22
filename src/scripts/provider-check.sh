@@ -94,6 +94,9 @@ openwhisk_Check () {
 spotinist_Check () {
   output_Provider_Selected "Spotinist"
 }
+other_Check () {
+  output_Provider_Selected "Other"
+}
 ###
 # Call provider based on parameter
 ###
