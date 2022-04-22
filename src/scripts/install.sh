@@ -1,6 +1,7 @@
 #!/bin/bash
 curl -o- -L https://slss.io/install | VERSION=$ORB_PARAM_SERVERLESS_VERSION bash
-echo "export PATH=$HOME/.serverless/bin:$PATH" >> "$BASH_ENV"
+# shellcheck disable=SC2016
+echo 'export PATH=$HOME/.serverless/bin:$PATH' >> "$BASH_ENV"
 # shellcheck disable=SC1090
 source "$BASH_ENV"
 # Check for Serverless key
