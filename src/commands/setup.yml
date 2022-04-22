@@ -5,6 +5,7 @@ parameters:
   provider:
     type: enum
     enum: ["", "AWS", "azure", "tencent", "google", "knative", "alibaba", "cloudflare", "fn", "kubeless", "openwhisk", "spotinist"]
+    description: (Optional) Select a cloud provider to receive additional helpful error messages during your initial configuration if a misconfiguration is detected.
     default: "AWS"
   version:
     type: string
