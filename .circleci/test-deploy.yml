@@ -16,12 +16,12 @@ jobs:
     steps:
       - checkout
       - serverless/setup:
-          version: 2.72.3
+          version: 3.15.0
           provider: ""
       - run:
           name: Check SLS version
           command: |
-            serverless --version | grep 2.72.3
+            serverless --version | grep 3.15.0
 
   test-sls-deploy:
     # Test within the default executor
