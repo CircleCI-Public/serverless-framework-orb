@@ -6,6 +6,10 @@ parameters:
     type: enum
     enum: ["", "AWS", "azure", "tencent", "google", "knative", "alibaba", "cloudflare", "fn", "kubeless", "openwhisk", "spotinist"]
     default: "AWS"
+  version:
+    type: string
+    description: Specify the version of the Serverless Framework CLI to install. By default, the latest version will be used.
+    default: ""
 steps:
   - run:
       name: Provider Check
@@ -14,4 +18,6 @@ steps:
       command: <<include(scripts/provider-check.sh)>>
   - run:
       name: Install Serverless CLI
+      environment:
+        ORB_PARAM_SERVERLESS_VERSION: <<parameters.version>>
       command: <<include(scripts/install.sh)>>
