@@ -15,10 +15,9 @@ jobs:
       SLS_DEBUG: "1"
     steps:
       - checkout
-      - aws-cli/setup
       - serverless/setup:
           version: 2.72.3
-          provider: AWS
+          provider: ""
       - run:
           name: Check SLS version
           command: |
@@ -59,6 +58,8 @@ workflows:
       - test-sls-deploy:
           filters: *filters
           context: CPE_ORBS_AWS
+      - test-sls-install-versioned:
+          filters: *filters
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -69,6 +70,7 @@ workflows:
           requires:
             - orb-tools/pack
             - test-sls-deploy
+            - test-sls-install-versioned
           context: orb-publisher
           filters:
             branches:
