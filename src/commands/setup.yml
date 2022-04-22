@@ -6,14 +6,6 @@ parameters:
     type: enum
     enum: ["", "AWS", "azure", "tencent", "google", "knative", "alibaba", "cloudflare", "fn", "kubeless", "openwhisk", "spotinist"]
     default: "AWS"
-  org-name:
-    type: string
-    description: Connect to serverless.com dashboard. Provide the org name for this app.
-    default: ""
-  app-name:
-    type: string
-    description: Connect to serverless.com dashboard. Provide the name of this app.
-    default: ""
 steps:
   - run:
       name: Provider Check
@@ -22,7 +14,4 @@ steps:
       command: <<include(scripts/provider-check.sh)>>
   - run:
       name: Install Serverless CLI
-      environment:
-        SERVERLESS_ORB_ORG_NAME: << parameters.org-name >>
-        SERVERLESS_ORB_APP_NAME: << parameters.app-name >>
       command: <<include(scripts/install.sh)>>
