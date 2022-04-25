@@ -6,9 +6,17 @@ parameters:
     type: string
     description: Specify the version of the Serverless Framework CLI to install. By default, the latest version will be used.
     default: ""
+  mirror:
+    type: enum
+    enum:
+      - us
+      - cn
+    default: us
+    description: Select the geo-location for the download mirror. By default the value will be `us`, do not change if on CircleCI Cloud. Switch to `cn` for the China hosted mirror.
 steps:
   - run:
       name: Install Serverless CLI
       environment:
         ORB_PARAM_SERVERLESS_VERSION: <<parameters.version>>
+        ORB_PARAM_MIRROR: <<parameters.mirror>>
       command: <<include(scripts/install.sh)>>
