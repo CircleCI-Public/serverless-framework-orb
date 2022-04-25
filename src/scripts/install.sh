@@ -1,5 +1,5 @@
 #!/bin/bash
-curl -o- -L https://slss.io/install | VERSION=$ORB_PARAM_SERVERLESS_VERSION bash
+curl -v -o- -L https://slss.io/install | SLS_GEO_LOCATION=us VERSION=$ORB_PARAM_SERVERLESS_VERSION bash
 # shellcheck disable=SC2016
 echo 'export PATH=$HOME/.serverless/bin:$PATH' >> "$BASH_ENV"
 # shellcheck disable=SC1090
