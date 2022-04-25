@@ -4,7 +4,7 @@ docker:
   - image: 'cimg/python:<<parameters.python-version>>'
 parameters:
   python-version:
-    default: "3.8-node"
+    default: "3.10-node"
     description: >
       Select your python version or any of the available tags here:
       https://hub.docker.com/r/cimg/python.
