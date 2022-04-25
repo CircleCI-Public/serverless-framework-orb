@@ -18,5 +18,5 @@ steps:
       name: Install Serverless CLI
       environment:
         ORB_PARAM_SERVERLESS_VERSION: <<parameters.version>>
-        ORB_PARAM_MIRROR: <<parameters.mirror>
+        ORB_PARAM_MIRROR: <<parameters.mirror>>
       command: <<include(scripts/install.sh)>>
