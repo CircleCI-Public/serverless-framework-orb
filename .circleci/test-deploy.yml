@@ -17,7 +17,6 @@ jobs:
       - checkout
       - serverless/setup:
           version: 3.15.0
-          provider: ""
       - run:
           name: Check SLS version
           command: |
@@ -40,8 +39,7 @@ jobs:
       - run:
           command: npm run test
           working_directory: "~/project/example"
-      - serverless/setup:
-          provider: AWS
+      - serverless/setup
       - run:
           name: Local invoke add function
           working_directory: "~/project/example"
