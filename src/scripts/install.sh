@@ -1,7 +1,7 @@
 #!/bin/bash
 export export SLS_SCRIPT_URL="https://sls-standalone-sv-1300963013.cos.na-siliconvalley.myqcloud.com/install.sh"
 SLS_GEO_LOCATION=us
-if [ "$ORB_PARAM_MIRROR" = "cn"]; then
+if [ "$ORB_PARAM_MIRROR" = "cn" ]; then
   export SLS_SCRIPT_URL="https://sls-standalone-1300963013.cos.ap-shanghai.myqcloud.com/install.sh"
   export SLS_GEO_LOCATION=cn
 fi
