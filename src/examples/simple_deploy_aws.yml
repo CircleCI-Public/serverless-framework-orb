@@ -3,17 +3,15 @@ description: >
 usage:
   version: 2.1
   orbs:
-    serverless-framework: circleci/serverless-framework@x.y
-    aws-cli: circleci/aws-cli@x.y
+    serverless-framework: circleci/serverless-framework@2.0
+    aws-cli: circleci/aws-cli@3.1
   jobs:
     deploy:
       executor: serverless-framework/default
       steps:
         - checkout
         - aws-cli/setup
-        - serverless-framework/setup:
-            app-name: serverless-framework-orb
-            org-name: circleci
+        - serverless-framework/setup
         - run:
             name: deploy
             command: serverless deploy -v
