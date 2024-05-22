@@ -3,6 +3,9 @@
 [ "$ORB_PARAM_MIRROR" = "cn" ] && locale=cn
 [ "$ORB_PARAM_MIRROR" = "us" ] && locale=us
 
+# Temporarily pin to github per Serverless recommendation.
+# Note that locale-specific mirror features will be mostly unavailable.
+# See https://forum.serverless.com/t/serverless-deploy-failing-when-run-from-circleci/20184/14
 install_url="https://raw.githubusercontent.com/serverless/serverless/v3/scripts/pkg/install.sh"
 
 # Let Serverless handle mirror selection.
