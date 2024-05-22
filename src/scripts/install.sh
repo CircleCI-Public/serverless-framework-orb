@@ -4,7 +4,7 @@
 [ "$ORB_PARAM_MIRROR" = "us" ] && locale=us
 
 # Let Serverless handle mirror selection.
-curl -o- -L https://slss.io/install | VERSION="$ORB_PARAM_SERVERLESS_VERSION" SLS_GEO_LOCATION="$locale" bash
+curl -o- -L https://install.serverless.com | VERSION="$ORB_PARAM_SERVERLESS_VERSION" SLS_GEO_LOCATION="$locale" bash
 
 # shellcheck disable=SC2016
 echo 'export PATH=$HOME/.serverless/bin:$PATH' >> "$BASH_ENV"
