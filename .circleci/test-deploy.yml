@@ -33,7 +33,9 @@ jobs:
       SLS_DEBUG: "1"
     steps:
       - checkout
-      - aws-cli/setup
+      - aws-cli/setup:
+          aws_access_key_id: ALTERNATE_AWS_ACCESS_KEY_ID
+          aws_secret_access_key: ALTERNATE_AWS_SECRET_ACCESS_KEY
       - node/install-packages:
           app-dir: "~/project/example"
       - run:
