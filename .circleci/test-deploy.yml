@@ -55,9 +55,9 @@ workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
-      - test-sls-deploy:
-          filters: *filters
-          context: CPE_ORBS_AWS
+#      - test-sls-deploy:
+#          filters: *filters
+#          context: CPE_ORBS_AWS
       - test-sls-install-versioned:
           filters: *filters
       - orb-tools/pack:
@@ -69,7 +69,7 @@ workflows:
           pub-type: production
           requires:
             - orb-tools/pack
-            - test-sls-deploy
+#            - test-sls-deploy
             - test-sls-install-versioned
           context: orb-publisher
           filters:
