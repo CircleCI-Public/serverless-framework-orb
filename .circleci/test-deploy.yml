@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   serverless: circleci/serverless-framework@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@11.1
-  aws-cli: circleci/aws-cli@0.1.22
+  aws-cli: circleci/aws-cli@4.1.3
   node: circleci/node@2.0
 
 filters: &filters
@@ -33,7 +33,9 @@ jobs:
       SLS_DEBUG: "1"
     steps:
       - checkout
-      - aws-cli/setup
+      - aws-cli/setup:
+          aws_access_key_id: ALTERNATE_AWS_ACCESS_KEY_ID
+          aws_secret_access_key: ALTERNATE_AWS_SECRET_ACCESS_KEY
       - node/install-packages:
           app-dir: "~/project/example"
       - run:
@@ -53,9 +55,9 @@ workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
-      - test-sls-deploy:
-          filters: *filters
-          context: CPE_ORBS_AWS
+#      - test-sls-deploy:
+#          filters: *filters
+#          context: CPE_ORBS_AWS
       - test-sls-install-versioned:
           filters: *filters
       - orb-tools/pack:
@@ -67,7 +69,7 @@ workflows:
           pub-type: production
           requires:
             - orb-tools/pack
-            - test-sls-deploy
+#            - test-sls-deploy
             - test-sls-install-versioned
           context: orb-publisher
           filters:

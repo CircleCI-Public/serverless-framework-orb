@@ -3,8 +3,13 @@
 [ "$ORB_PARAM_MIRROR" = "cn" ] && locale=cn
 [ "$ORB_PARAM_MIRROR" = "us" ] && locale=us
 
+# Temporarily pin to github per Serverless recommendation.
+# Note that locale-specific mirror features will be mostly unavailable.
+# See https://forum.serverless.com/t/serverless-deploy-failing-when-run-from-circleci/20184/14
+install_url="https://raw.githubusercontent.com/serverless/serverless/v3/scripts/pkg/install.sh"
+
 # Let Serverless handle mirror selection.
-curl -o- -L https://slss.io/install | VERSION="$ORB_PARAM_SERVERLESS_VERSION" SLS_GEO_LOCATION="$locale" bash
+curl -o- -L "${install_url}" | VERSION="$ORB_PARAM_SERVERLESS_VERSION" SLS_GEO_LOCATION="$locale" bash
 
 # shellcheck disable=SC2016
 echo 'export PATH=$HOME/.serverless/bin:$PATH' >> "$BASH_ENV"
