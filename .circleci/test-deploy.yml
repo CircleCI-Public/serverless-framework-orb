@@ -65,6 +65,7 @@ workflows:
       - orb-tools/publish:
           orb-name: circleci/serverless-framework
           vcs-type: << pipeline.project.type >>
+          enable-pr-comment: false
           github-token: GHI_TOKEN
           pub-type: production
           requires:
